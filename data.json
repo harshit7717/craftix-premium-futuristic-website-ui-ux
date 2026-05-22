@@ -1,0 +1,55 @@
+{
+  "products": [
+    {
+      "id": "p1",
+      "name": "Custom Acrylic Nameplate",
+      "price": 1499,
+      "image": "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80",
+      "description": "Edge-lit acrylic plate with precision engraving for desks and studios."
+    },
+    {
+      "id": "p2",
+      "name": "Laser Engraved Wooden Plaque",
+      "price": 999,
+      "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=1200&q=80",
+      "description": "Premium hardwood plaque with deep-burn detail and matte finish."
+    },
+    {
+      "id": "p3",
+      "name": "3D Printed Prototype Kit",
+      "price": 2499,
+      "image": "https://images.unsplash.com/photo-1581093458791-9d42e8428d14?auto=format&fit=crop&w=1200&q=80",
+      "description": "Functional rapid-prototype parts printed for fit and form validation."
+    }
+  ],
+  "orders": [
+    {
+      "id": "b71c5d93-f42f-4cc3-8aed-170883f827a8",
+      "productId": "p1",
+      "productName": "Custom Acrylic Nameplate",
+      "unitPrice": 1499,
+      "quantity": 1,
+      "total": 1499,
+      "customerName": "Test User",
+      "phone": "9999999999",
+      "notes": "test",
+      "status": "new",
+      "paymentStatus": "pending",
+      "createdAt": "2026-05-22T18:53:36.887Z"
+    },
+    {
+      "id": "1add75c1-09d8-4a1d-a13a-664ada12cbde",
+      "productId": "p1",
+      "productName": "Custom Acrylic Nameplate",
+      "unitPrice": 1499,
+      "quantity": 1,
+      "total": 1499,
+      "customerName": "Test User",
+      "phone": "9999999999",
+      "notes": "test",
+      "status": "new",
+      "paymentStatus": "pending",
+      "createdAt": "2026-05-22T18:53:16.250Z"
+    }
+  ]
+}

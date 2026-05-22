@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Craftix | Precision Meets Creativity</title>
+  <meta name="description" content="Craftix delivers premium custom laser engraving and high-speed 3D printing with industrial-grade precision." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="noise"></div>
+  <div id="particles"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" id="brandMark">C</span>
+      <span>Craftix</span>
+    </div>
+    <nav>
+      <a href="#services">Services</a>
+      <a href="#shop">Shop</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero section">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">Premium Custom Manufacturing Studio</p>
+        <h1>Craftix - Precision Meets Creativity</h1>
+        <p class="subhead">Custom laser engraving and high-speed 3D printing crafted with industrial-grade precision.</p>
+        <div class="cta-group">
+          <a class="btn btn-primary" href="#contact">Start Your Project</a>
+          <a class="btn btn-secondary" href="#shop">Explore Shop</a>
+        </div>
+      </div>
+      <div class="hero-scene reveal">
+        <div class="machine laser-machine glass"><div class="machine-label">Creality Falcon 5W</div><div class="laser-bed"><div class="wood"></div><div class="laser-beam"></div><div class="spark spark-1"></div><div class="spark spark-2"></div><div class="smoke"></div></div></div>
+        <div class="machine printer-machine glass"><div class="machine-label">Anycubic Kobra 2 Neo</div><div class="print-zone"><div class="model-core"></div><div class="print-head"></div></div></div>
+        <div class="holo holo-1 glass">LIVE TEMP 220 C</div><div class="holo holo-2 glass">ENGRAVE DEPTH 0.4MM</div><div class="holo holo-3 glass">LAYER SPEED 250MM/S</div>
+      </div>
+    </section>
+
+    <section id="services" class="section"><h2 class="reveal">Services</h2><div class="service-grid"><article class="service-card glass reveal"><h3>Laser Engraving</h3><p>Precision detail on wood, acrylic, leather, and coated metals.</p></article><article class="service-card glass reveal"><h3>3D Printing</h3><p>Fast prototyping and functional parts with clean finish quality.</p></article><article class="service-card glass reveal"><h3>Personalized Gifts</h3><p>One-of-a-kind pieces engineered for premium unboxing impact.</p></article><article class="service-card glass reveal"><h3>Rapid Prototyping</h3><p>From CAD to physical iteration at startup-friendly turnaround speed.</p></article><article class="service-card glass reveal"><h3>Product Customization</h3><p>Batch customization pipelines for branded SKUs and limited runs.</p></article></div></section>
+
+    <section id="shop" class="section"><h2 class="reveal">Shop Products</h2><div class="product-grid" id="productGrid"></div></section>
+
+    <section id="portfolio" class="section"><h2 class="reveal">Portfolio Gallery</h2><div class="masonry"><div class="tile glass reveal">Acrylic Signs</div><div class="tile glass reveal">Wooden Engravings</div><div class="tile glass reveal">3D Printed Prototypes</div><div class="tile glass reveal">Keychains</div><div class="tile glass reveal">LED Nameplates</div><div class="tile glass reveal">Custom Gifts</div></div></section>
+
+    <section class="section"><h2 class="reveal">How It Works</h2><div class="timeline"><div class="step reveal"><span>1</span><h3>Upload Design</h3></div><div class="step reveal"><span>2</span><h3>Customize</h3></div><div class="step reveal"><span>3</span><h3>Production</h3></div><div class="step reveal"><span>4</span><h3>Delivery</h3></div></div></section>
+
+    <section id="admin" class="section admin-section" hidden>
+      <h2 class="reveal">Admin Dashboard</h2>
+      <form id="adminLoginForm" class="glass admin-form reveal">
+        <input id="adminPassword" type="password" placeholder="Admin Password" required />
+        <button type="submit" class="btn btn-primary">Login</button>
+        <p id="adminLoginMsg" class="muted"></p>
+      </form>
+      <div id="adminPanel" hidden>
+        <div class="sales-stats glass reveal"><article><h3>Total Orders</h3><p id="totalOrders">0</p></article><article><h3>Estimated Revenue</h3><p id="totalRevenue">INR 0</p></article></div>
+        <form id="adminForm" class="glass admin-form reveal"><input id="productName" type="text" placeholder="Product Name" required /><input id="productPrice" type="number" min="1" placeholder="Price (INR)" required /><input id="productImage" type="url" placeholder="Image URL (optional)" /><input id="productImageFile" type="file" accept="image/*" /><textarea id="productDescription" rows="4" placeholder="Short product description" required></textarea><button type="submit" class="btn btn-primary">Add Product</button></form>
+        <div class="glass sales-log reveal"><h3>Recent Orders</h3><ul id="salesList"></ul><div class="cta-group"><a id="exportCsvBtn" class="btn btn-secondary" href="/api/admin/export/orders.csv" target="_blank" rel="noopener noreferrer">Export CSV</a><button id="adminLogoutBtn" class="btn btn-secondary" type="button">Logout</button></div></div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact"><h2 class="reveal">Start Your Build</h2><div class="contact-grid"><form class="glass reveal"><input type="text" placeholder="Your Name" required><input type="email" placeholder="Email" required><select required><option value="">Service Needed</option><option>Laser Engraving</option><option>3D Printing</option><option>Product Customization</option></select><textarea placeholder="Project Brief" rows="5" required></textarea><button type="submit" class="btn btn-primary">Request Quote</button></form><div class="social-panel glass reveal"><a href="https://wa.me/918278518804" target="_blank" rel="noopener noreferrer">WhatsApp Chat</a><a href="#">Instagram Preview</a><div class="newsletter"><h3>Newsletter</h3><input type="email" placeholder="Email Address"><button class="btn btn-secondary">Subscribe</button></div></div></div></section>
+  </main>
+
+  <div id="checkoutModal" class="modal" hidden>
+    <div class="glass modal-card">
+      <h3>Complete Order</h3>
+      <p id="checkoutProduct"></p>
+      <form id="checkoutForm">
+        <input id="customerName" type="text" placeholder="Your Name" required />
+        <input id="customerPhone" type="text" placeholder="Phone Number" required />
+        <input id="orderQty" type="number" min="1" value="1" required />
+        <textarea id="orderNotes" placeholder="Notes (optional)" rows="3"></textarea>
+        <div class="cta-group"><button type="submit" class="btn btn-primary">Place Order</button><button type="button" id="closeCheckout" class="btn btn-secondary">Cancel</button></div>
+      </form>
+    </div>
+  </div>
+
+  <footer><p>Craftix © 2026 | Premium Laser Engraving & 3D Printing Studio</p></footer>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

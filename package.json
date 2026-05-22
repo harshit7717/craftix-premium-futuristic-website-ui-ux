@@ -1,0 +1,13 @@
+﻿{
+  "name": "craftix-premium-futuristic-website-ui-ux",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Craftix premium manufacturing website with admin dashboard, orders, CSV export, and Razorpay checkout.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
