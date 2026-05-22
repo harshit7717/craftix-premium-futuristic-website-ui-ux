@@ -12,6 +12,7 @@ const salesListEl = document.getElementById("salesList");
 const totalOrdersEl = document.getElementById("totalOrders");
 const totalRevenueEl = document.getElementById("totalRevenue");
 const adminLogoutBtn = document.getElementById("adminLogoutBtn");
+const contactForm = document.getElementById("contactForm");
 
 const checkoutModal = document.getElementById("checkoutModal");
 const checkoutForm = document.getElementById("checkoutForm");
@@ -21,6 +22,24 @@ const closeCheckout = document.getElementById("closeCheckout");
 let selectedProductId = null;
 let logoTapCount = 0;
 let logoTapTimer = null;
+let cachedProducts = [];
+
+const fallbackProducts = [
+  {
+    id: "fallback-1",
+    name: "Custom Acrylic Nameplate",
+    price: 1499,
+    image: "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80",
+    description: "Edge-lit acrylic plate with precision engraving for desks and studios."
+  },
+  {
+    id: "fallback-2",
+    name: "Laser Engraved Wooden Plaque",
+    price: 999,
+    image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=1200&q=80",
+    description: "Premium hardwood plaque with deep-burn detail and matte finish."
+  }
+];
 
 function formatINR(price) {
   return new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(price);
@@ -43,7 +62,14 @@ async function request(url, options = {}) {
 }
 
 async function loadProducts() {
-  const { products } = await request("/api/products");
+  let products = [];
+  try {
+    const data = await request("/api/products");
+    products = data.products || [];
+  } catch {
+    products = fallbackProducts;
+  }
+  cachedProducts = products;
   productGrid.innerHTML = "";
   products.forEach((product) => {
     const card = document.createElement("article");
@@ -58,9 +84,8 @@ async function loadProducts() {
   });
 
   document.querySelectorAll("[data-buy]").forEach((btn) => {
-    btn.addEventListener("click", async () => {
-      const { products } = await request("/api/products");
-      const p = products.find((x) => x.id === btn.dataset.buy);
+    btn.addEventListener("click", () => {
+      const p = cachedProducts.find((x) => x.id === btn.dataset.buy);
       if (!p) return;
       selectedProductId = p.id;
       checkoutProduct.textContent = `${p.name} - ${formatINR(p.price)}`;
@@ -118,15 +143,17 @@ document.addEventListener("keydown", (event) => {
   if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === "a") revealAdminLogin();
 });
 
-brandMark.addEventListener("click", () => {
-  logoTapCount += 1;
-  if (logoTapTimer) clearTimeout(logoTapTimer);
-  logoTapTimer = setTimeout(() => { logoTapCount = 0; }, 1600);
-  if (logoTapCount >= 5) {
-    logoTapCount = 0;
-    revealAdminLogin();
-  }
-});
+if (brandMark) {
+  brandMark.addEventListener("click", () => {
+    logoTapCount += 1;
+    if (logoTapTimer) clearTimeout(logoTapTimer);
+    logoTapTimer = setTimeout(() => { logoTapCount = 0; }, 1600);
+    if (logoTapCount >= 5) {
+      logoTapCount = 0;
+      revealAdminLogin();
+    }
+  });
+}
 
 adminLoginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -179,6 +206,9 @@ checkoutForm.addEventListener("submit", async (e) => {
     notes: document.getElementById("orderNotes").value.trim()
   };
   try {
+    if (typeof window.Razorpay !== "function") {
+      throw new Error("Payment gateway temporarily unavailable");
+    }
     const paymentOrder = await request("/api/payments/create-order", { method: "POST", body: JSON.stringify(payload) });
     const rzp = new window.Razorpay({
       key: paymentOrder.keyId,
@@ -225,6 +255,21 @@ checkoutForm.addEventListener("submit", async (e) => {
 });
 
 closeCheckout.addEventListener("click", () => { checkoutModal.hidden = true; });
+
+if (contactForm) {
+  contactForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = document.getElementById("contactName").value.trim();
+    const email = document.getElementById("contactEmail").value.trim();
+    const service = document.getElementById("contactService").value.trim();
+    const brief = document.getElementById("contactBrief").value.trim();
+    const subject = encodeURIComponent(`New Craftix Inquiry - ${service}`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nService: ${service}\n\nProject Brief:\n${brief}`
+    );
+    window.location.href = `mailto:craftix.work@gmail.com?subject=${subject}&body=${body}`;
+  });
+}
 
 const particleCount = window.innerWidth < 768 ? 30 : 65;
 for (let i = 0; i < particleCount; i += 1) {
