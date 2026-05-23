@@ -54,6 +54,26 @@ function readFileAsDataUrl(file) {
   });
 }
 
+function attachTiltEffects() {
+  document.querySelectorAll(".tilt-3d").forEach((el) => {
+    if (el.dataset.tiltBound === "1") return;
+    el.dataset.tiltBound = "1";
+    el.addEventListener("mousemove", (e) => {
+      const r = el.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+      const rx = ((y / r.height) - 0.5) * -8;
+      const ry = ((x / r.width) - 0.5) * 10;
+      el.style.setProperty("--mx", `${(x / r.width) * 100}%`);
+      el.style.setProperty("--my", `${(y / r.height) * 100}%`);
+      el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
+    });
+    el.addEventListener("mouseleave", () => {
+      el.style.transform = "";
+    });
+  });
+}
+
 async function request(url, options = {}) {
   const res = await fetch(url, { ...options, headers: { "Content-Type": "application/json", ...(options.headers || {}) } });
   const data = await res.json().catch(() => ({}));
@@ -73,7 +93,7 @@ async function loadProducts() {
   productGrid.innerHTML = "";
   products.forEach((product) => {
     const card = document.createElement("article");
-    card.className = "product-card glass reveal visible";
+    card.className = "product-card glass reveal visible tilt-3d";
     card.innerHTML = `
       <img src="${product.image}" alt="${product.name}" loading="lazy" />
       <div class="product-meta"><h3>${product.name}</h3><strong>${formatINR(product.price)}</strong></div>
@@ -92,6 +112,7 @@ async function loadProducts() {
       checkoutModal.hidden = false;
     });
   });
+  attachTiltEffects();
 }
 
 async function refreshAdmin() {
@@ -292,5 +313,6 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.18 });
 document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+attachTiltEffects();
 
 loadProducts();
